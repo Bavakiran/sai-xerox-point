@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 waMessage += `*Message:* ${message}\n`;
             }
 
-            const waUrl = `https://wa.me/919876543210?text=${encodeURIComponent(waMessage)}`;
+            const waUrl = `https://wa.me/919940180061?text=${encodeURIComponent(waMessage)}`;
 
             // Show success message
             const submitBtn = document.getElementById('submitBtn');
