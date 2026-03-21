@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Generator | Sai Xerox Point</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/bill.css">
+</head>
+<body>
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/saibaba.jpg" alt="Sai Baba Logo" class="nav-logo-img">
+                <span>Sai Xerox Point</span>
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="ph ph-list"></i>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html#home" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About Us</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#gallery" class="nav-link">Gallery</a>
+                <a href="bill.html" class="nav-link highlight" style="font-weight: 700;">Bill Generator</a>
+                <a href="index.html#areas" class="nav-link">Areas We Serve</a>
+                <a href="index.html#contact" class="nav-link contact-btn">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero b-hero" style="min-height: auto; padding: 120px 0 60px;">
+            <div class="hero-bg-glow glow-1"></div>
+            <div class="container text-center">
+                <h2>Bill <span class="highlight">Generator</span></h2>
+                <p>Create and print professional bills for your customers</p>
+            </div>
+        </section>
+
+        <section class="bill-section" style="padding-top: 0;">
+            <div class="container">
+                <div class="glass-panel bill-container">
+                    <!-- Bill Header -->
+                    <div class="bill-header">
+                        <div class="bill-brand">
+                            <img src="assets/images/saibaba.jpg" alt="Sai Baba Logo" width="60" style="border-radius: 50%; border: 2px solid var(--primary);">
+                            <div>
+                                <h3>Sai Xerox Point</h3>
+                                <p>1, Ponniamman Koil St, Hasthinapuram, Chennai - 600064</p>
+                                <p>Phone: +91 99401 80061</p>
+                            </div>
+                        </div>
+                        <div class="bill-details-form hide-print">
+                            <div class="form-group flex-col">
+                                <label>Customer Name</label>
+                                <input type="text" id="customerName" placeholder="Enter customer name" class="form-input">
+                            </div>
+                            <div class="form-group flex-col">
+                                <label>Customer Phone</label>
+                                <input type="text" id="customerPhone" placeholder="Enter phone" class="form-input">
+                            </div>
+                            <div class="form-group flex-col">
+                                <label>Date</label>
+                                <input type="date" id="billDate" class="form-input">
+                            </div>
+                            <div class="form-group flex-col">
+                                <label>Bill No</label>
+                                <input type="text" id="billNo" placeholder="AUTO" class="form-input">
+                            </div>
+                        </div>
+                        <div class="bill-details-print only-print">
+                            <h2 style="margin-bottom: 20px;">INVOICE</h2>
+                            <p><strong>Bill No:</strong> <span id="pBillNo"></span></p>
+                            <p><strong>Date:</strong> <span id="pBillDate"></span></p>
+                            <p><strong>Customer:</strong> <span id="pCustomerInfo"></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Items Table -->
+                    <div class="bill-body">
+                        <table class="bill-table w-100">
+                            <thead>
+                                <tr>
+                                    <th>Item Description</th>
+                                    <th width="100">Qty</th>
+                                    <th width="150" class="text-right">Price (₹)</th>
+                                    <th width="150" class="text-right">Total (₹)</th>
+                                    <th width="60" class="hide-print text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="billItems">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                        <button id="addItemBtn" class="btn btn-secondary mt-10 hide-print"><i class="ph ph-plus"></i> Add Item</button>
+                    </div>
+
+                    <!-- Bill Footer (Totals) -->
+                    <div class="bill-footer">
+                        <div class="bill-notes">
+                            <h4>Terms & Conditions</h4>
+                            <p>1. Thank you for your business.<br>2. Goods once sold will not be taken back.<br>3. Subject to Chennai Jurisdiction.</p>
+                            <div class="signature only-print">
+                                <p>Authorized Signatory</p>
+                            </div>
+                        </div>
+                        <div class="bill-summary">
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span>₹<span id="subTotal">0.00</span></span>
+                            </div>
+                            <div class="summary-row hide-print">
+                                <span>Tax (%):</span>
+                                <div><input type="number" id="taxRate" value="0" min="0" max="100" class="form-input small-input text-right"></div>
+                            </div>
+                            <div class="summary-row only-print" id="printTaxRow" style="display: none;">
+                                <span>Tax:</span>
+                                <span>₹<span id="pTaxAmount">0.00</span></span>
+                            </div>
+                            <div class="summary-row grand-total">
+                                <span>Grand Total:</span>
+                                <span>₹<span id="grandTotal">0.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bill-actions hide-print mt-20 text-center">
+                    <button id="printBtn" class="btn btn-primary"><i class="ph ph-printer"></i> Print Bill</button>
+                    <button id="resetBtn" class="btn btn-outline-light"><i class="ph ph-arrow-counter-clockwise"></i> Reset</button>
+                    <button id="downloadPdfBtn" class="btn btn-secondary" style="margin-left:8px;"><i class="ph ph-download-simple"></i> Download</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer same as index.html -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/saibaba.jpg" alt="Sai Baba Logo" class="nav-logo-img">
+                    <span>Sai Xerox Point</span>
+                </a>
+                <p>Your trusted partner for xerox, documentation, registration, and legal services.</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/919940180061" target="_blank" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                    <a href="tel:+919940180061" aria-label="Phone"><i class="ph ph-phone"></i></a>
+                    <a href="mailto:saixerox061@gmail.com" aria-label="Email"><i class="ph ph-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="bill.html" class="highlight">Bill Generator</a></li>
+                    <li><a href="index.html#areas">Areas We Serve</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; <span id="current-year"></span> Sai Xerox Point. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- HTML2PDF Library for saving to PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/bill.js"></script>
+</body>
+</html>
