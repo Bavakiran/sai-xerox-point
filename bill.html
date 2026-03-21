@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill Generator | Sai Xerox Point</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/bill.css">
 </head>
+
 <body>
     <header class="navbar" id="navbar">
         <div class="nav-container">
@@ -49,7 +53,8 @@
                     <!-- Bill Header -->
                     <div class="bill-header">
                         <div class="bill-brand">
-                            <img src="assets/images/saibaba.jpg" alt="Sai Baba Logo" width="60" style="border-radius: 50%; border: 2px solid var(--primary);">
+                            <img src="assets/images/saibaba.jpg" alt="Sai Baba Logo" width="60"
+                                style="border-radius: 50%; border: 2px solid var(--primary);">
                             <div>
                                 <h3>Sai Xerox Point</h3>
                                 <p>1, Ponniamman Koil St, Hasthinapuram, Chennai - 600064</p>
@@ -59,7 +64,8 @@
                         <div class="bill-details-form hide-print">
                             <div class="form-group flex-col">
                                 <label>Customer Name</label>
-                                <input type="text" id="customerName" placeholder="Enter customer name" class="form-input">
+                                <input type="text" id="customerName" placeholder="Enter customer name"
+                                    class="form-input">
                             </div>
                             <div class="form-group flex-col">
                                 <label>Customer Phone</label>
@@ -98,14 +104,16 @@
                                 <!-- Dynamic rows -->
                             </tbody>
                         </table>
-                        <button id="addItemBtn" class="btn btn-secondary mt-10 hide-print"><i class="ph ph-plus"></i> Add Item</button>
+                        <button id="addItemBtn" class="btn btn-secondary mt-10 hide-print"><i class="ph ph-plus"></i>
+                            Add Item</button>
                     </div>
 
                     <!-- Bill Footer (Totals) -->
                     <div class="bill-footer">
                         <div class="bill-notes">
                             <h4>Terms & Conditions</h4>
-                            <p>1. Thank you for your business.<br>2. Goods once sold will not be taken back.<br>3. Subject to Chennai Jurisdiction.</p>
+                            <p>1. Thank you for your business.<br>2. Goods once sold will not be taken back.<br>3.
+                                Subject to Chennai Jurisdiction.</p>
                             <div class="signature only-print">
                                 <p>Authorized Signatory</p>
                             </div>
@@ -117,7 +125,8 @@
                             </div>
                             <div class="summary-row hide-print">
                                 <span>Tax (%):</span>
-                                <div><input type="number" id="taxRate" value="0" min="0" max="100" class="form-input small-input text-right"></div>
+                                <div><input type="number" id="taxRate" value="0" min="0" max="100"
+                                        class="form-input small-input text-right"></div>
                             </div>
                             <div class="summary-row only-print" id="printTaxRow" style="display: none;">
                                 <span>Tax:</span>
@@ -133,8 +142,10 @@
 
                 <div class="bill-actions hide-print mt-20 text-center">
                     <button id="printBtn" class="btn btn-primary"><i class="ph ph-printer"></i> Print Bill</button>
-                    <button id="resetBtn" class="btn btn-outline-light"><i class="ph ph-arrow-counter-clockwise"></i> Reset</button>
-                    <button id="downloadPdfBtn" class="btn btn-secondary" style="margin-left:8px;"><i class="ph ph-download-simple"></i> Download</button>
+                    <button id="resetBtn" class="btn btn-outline-light"><i class="ph ph-arrow-counter-clockwise"></i>
+                        Reset</button>
+                    <button id="downloadPdfBtn" class="btn btn-secondary" style="margin-left:8px;"><i
+                            class="ph ph-download-simple"></i> Download</button>
                 </div>
             </div>
         </section>
@@ -148,9 +159,10 @@
                     <img src="assets/images/saibaba.jpg" alt="Sai Baba Logo" class="nav-logo-img">
                     <span>Sai Xerox Point</span>
                 </a>
-                <p>Your trusted partner for xerox, documentation, registration, and legal services.</p>
+                <p>Your trusted partner for documentation, registration, and legal services.</p>
                 <div class="footer-social">
-                    <a href="https://wa.me/919940180061" target="_blank" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                    <a href="https://wa.me/919940180061" target="_blank" aria-label="WhatsApp"><i
+                            class="ph ph-whatsapp-logo"></i></a>
                     <a href="tel:+919940180061" aria-label="Phone"><i class="ph ph-phone"></i></a>
                     <a href="mailto:saixerox061@gmail.com" aria-label="Email"><i class="ph ph-envelope"></i></a>
                 </div>
@@ -176,8 +188,11 @@
     </footer>
 
     <!-- HTML2PDF Library for saving to PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/bill.js"></script>
 </body>
+
 </html>
