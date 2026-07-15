@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reportSummary = document.getElementById('reportSummary');
 
     // Simple auth (mock)
-    const CORRECT_PASSWORD = "admin";
+    const CORRECT_PASSWORD = "Bavakiran@321";
     
     if (sessionStorage.getItem('docAuth') === 'true') {
         showTool();
