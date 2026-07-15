@@ -1,0 +1,41 @@
+.upload-box {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+}
+.upload-box:hover {
+    border-color: var(--primary);
+    background: rgba(14, 165, 233, 0.05);
+}
+.upload-box input[type="file"] {
+    margin-top: 15px;
+    width: 100%;
+}
+.compare-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+}
+.status-match {
+    color: #10b981;
+    font-weight: 600;
+}
+.status-mismatch {
+    color: #ef4444;
+    font-weight: 600;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+.status-missing {
+    color: #f59e0b;
+    font-style: italic;
+}
+@media (max-width: 768px) {
+    .upload-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
