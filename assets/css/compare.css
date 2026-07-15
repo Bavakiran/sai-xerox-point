@@ -1,41 +1,45 @@
-.compare-input-table td {
-    padding: 6px 10px;
-    vertical-align: middle;
-}
-.compare-input-table .form-input {
+.file-input-styled {
     width: 100%;
-    padding: 8px 10px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    color: var(--text-secondary);
     font-size: 0.9rem;
-}
-.btn-remove {
-    background: none;
-    border: none;
-    color: #ef4444;
     cursor: pointer;
-    font-size: 1.1rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    transition: background 0.2s;
 }
-.btn-remove:hover {
-    background: rgba(239,68,68,0.1);
+.doc-preview {
+    margin-top: 8px;
+    max-height: 420px;
+    overflow: auto;
+    border-radius: 8px;
 }
-.upload-box {
-    border: 2px dashed var(--border-color);
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.02);
-    transition: all 0.3s ease;
+.ocr-status {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    min-height: 20px;
 }
-.upload-box:hover {
-    border-color: var(--primary);
-    background: rgba(14, 165, 233, 0.05);
+.ocr-running {
+    color: var(--primary);
 }
-.compare-table td {
+.extracted-text {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.75rem;
+    max-height: 200px;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--text-secondary);
+    margin: 0;
+    border: 1px solid var(--border-color);
+}
+.compare-table td, .compare-table th {
     padding: 12px 10px;
     border-bottom: 1px solid var(--border-color);
     font-size: 0.95rem;
+    text-align: left;
 }
 .status-match {
     color: #10b981;
@@ -44,16 +48,17 @@
 .status-mismatch {
     color: #ef4444;
     font-weight: 600;
-    background: rgba(239, 68, 68, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
 }
 .status-missing {
     color: #f59e0b;
     font-style: italic;
 }
 @media (max-width: 768px) {
-    .upload-grid {
+    .preview-grid {
         grid-template-columns: 1fr !important;
     }
+}
+@media print {
+    .navbar, .hero, section:not(.compare-section), button, .file-input-styled, #extractedSection { display: none !important; }
+    #resultsContainer { display: block !important; }
 }
