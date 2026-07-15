@@ -1,3 +1,25 @@
+.compare-input-table td {
+    padding: 6px 10px;
+    vertical-align: middle;
+}
+.compare-input-table .form-input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+}
+.btn-remove {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.btn-remove:hover {
+    background: rgba(239,68,68,0.1);
+}
 .upload-box {
     border: 2px dashed var(--border-color);
     border-radius: 12px;
@@ -9,10 +31,6 @@
 .upload-box:hover {
     border-color: var(--primary);
     background: rgba(14, 165, 233, 0.05);
-}
-.upload-box input[type="file"] {
-    margin-top: 15px;
-    width: 100%;
 }
 .compare-table td {
     padding: 12px 10px;

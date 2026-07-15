@@ -30,64 +30,75 @@
             <div class="hero-bg-glow glow-1"></div>
             <div class="container text-center">
                 <h2>Document <span class="highlight">Comparer</span></h2>
-                <p>Verify document details before registration</p>
+                <p>Compare two documents field by field before registration</p>
             </div>
         </section>
 
         <section class="compare-section" style="padding-top: 0; min-height: 50vh;">
             <div class="container">
+
                 <!-- Auth Card -->
-                <div id="authContainer" class="glass-panel" style="max-width: 400px; margin: 0 auto; padding: 30px; text-align: center;">
-                    <h3>Authentication Required</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Please enter password to access this tool.</p>
-                    <input type="password" id="authPassword" placeholder="Enter password" class="form-input" style="margin-bottom: 15px;">
-                    <button id="loginBtn" class="btn btn-primary w-100">Login</button>
-                    <p id="authError" style="color: #ef4444; margin-top: 10px; display: none;">Incorrect password</p>
+                <div id="authContainer" class="glass-panel" style="max-width: 400px; margin: 0 auto 40px; padding: 36px; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 12px;"><i class="ph ph-lock-key" style="color: var(--primary);"></i></div>
+                    <h3 style="margin-bottom: 8px;">Staff Access Only</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 24px;">Enter your password to use the Document Comparer tool.</p>
+                    <div class="form-group" style="text-align: left; margin-bottom: 16px;">
+                        <label for="authPassword">Password</label>
+                        <input type="password" id="authPassword" placeholder="Enter password" class="form-input">
+                    </div>
+                    <button id="loginBtn" class="btn btn-primary w-100">Unlock Tool <i class="ph ph-arrow-right"></i></button>
+                    <p id="authError" style="color: #ef4444; margin-top: 12px; display: none;"><i class="ph ph-warning"></i> Incorrect password. Try again.</p>
                 </div>
 
                 <!-- Tool Card -->
-                <div id="toolContainer" class="glass-panel" style="max-width: 800px; margin: 0 auto; display: none; padding: 30px;">
-                    <div class="upload-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                        <div class="upload-box" id="uploadOldBox">
-                            <h4>Previous/Original Document</h4>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Upload PDF or Image</p>
-                            <input type="file" id="fileOld" accept=".pdf,image/*">
-                        </div>
-                        <div class="upload-box" id="uploadNewBox">
-                            <h4>New Draft Document</h4>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Upload PDF or Image</p>
-                            <input type="file" id="fileNew" accept=".pdf,image/*">
-                        </div>
+                <div id="toolContainer" class="glass-panel" style="max-width: 900px; margin: 0 auto 40px; display: none; padding: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                        <h3 style="margin: 0;">Field-by-Field Comparison</h3>
+                        <button id="addRowBtn" class="btn btn-secondary" style="font-size: 0.9rem;">
+                            <i class="ph ph-plus"></i> Add Field
+                        </button>
                     </div>
-                    
-                    <button id="compareBtn" class="btn btn-primary w-100" style="margin-bottom: 20px;">Run Comparison</button>
-                    
-                    <div id="resultsContainer" style="display: none; border-top: 1px solid var(--border-color); padding-top: 20px;">
-                        <h3 style="margin-bottom: 15px;">Comparison Report</h3>
-                        <div id="loadingState" style="text-align: center; padding: 20px; display: none;">
-                            <i class="ph ph-spinner ph-spin" style="font-size: 2rem; color: var(--primary);"></i>
-                            <p>Analyzing documents with AI...</p>
-                        </div>
-                        <div id="reportState" style="display: none;">
-                            <p id="reportSummary" style="margin-bottom: 15px; font-weight: 500;"></p>
-                            <div style="overflow-x: auto;">
-                                <table class="compare-table" style="width: 100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr style="border-bottom: 1px solid var(--border-color);">
-                                            <th style="padding: 10px; text-align: left;">Field</th>
-                                            <th style="padding: 10px; text-align: left;">Previous Doc</th>
-                                            <th style="padding: 10px; text-align: left;">New Draft</th>
-                                            <th style="padding: 10px; text-align: left;">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="reportTableBody">
-                                        <!-- Dynamic content -->
-                                    </tbody>
-                                </table>
-                            </div>
+
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;" class="compare-input-table">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 10px; text-align: left; min-width: 160px;">Field</th>
+                                    <th style="padding: 10px; text-align: left; min-width: 200px;">Original / Previous Doc</th>
+                                    <th style="padding: 10px; text-align: left; min-width: 200px;">New Draft</th>
+                                    <th style="padding: 10px; width: 40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="fieldsBody">
+                                <!-- Rows added by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button id="compareBtn" class="btn btn-primary" style="margin-top: 24px; width: 100%;">
+                        <i class="ph ph-arrows-left-right"></i> Compare Documents
+                    </button>
+
+                    <!-- Results -->
+                    <div id="resultsContainer" style="display: none; margin-top: 32px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+                        <h3 style="margin-bottom: 8px;">Comparison Result</h3>
+                        <p id="reportSummary" style="color: var(--text-secondary); margin-bottom: 16px; font-size: 0.95rem;"></p>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse;" class="compare-table">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <th style="padding: 10px; text-align: left;">Field</th>
+                                        <th style="padding: 10px; text-align: left;">Original Doc</th>
+                                        <th style="padding: 10px; text-align: left;">New Draft</th>
+                                        <th style="padding: 10px; text-align: left;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportTableBody"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
     </main>

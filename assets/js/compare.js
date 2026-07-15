@@ -4,17 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.getElementById('loginBtn');
     const authPassword = document.getElementById('authPassword');
     const authError = document.getElementById('authError');
-    
     const compareBtn = document.getElementById('compareBtn');
     const resultsContainer = document.getElementById('resultsContainer');
-    const loadingState = document.getElementById('loadingState');
-    const reportState = document.getElementById('reportState');
     const reportTableBody = document.getElementById('reportTableBody');
     const reportSummary = document.getElementById('reportSummary');
 
-    // Simple auth (mock)
     const CORRECT_PASSWORD = "Bavakiran@321";
-    
+
     if (sessionStorage.getItem('docAuth') === 'true') {
         showTool();
     }
@@ -28,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             authPassword.value = '';
         }
     });
-    
+
     authPassword.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') loginBtn.click();
     });
@@ -38,58 +34,81 @@ document.addEventListener('DOMContentLoaded', () => {
         toolContainer.style.display = 'block';
     }
 
-    // Mock comparison logic
     compareBtn.addEventListener('click', () => {
-        const fileOld = document.getElementById('fileOld').files[0];
-        const fileNew = document.getElementById('fileNew').files[0];
-        
-        if (!fileOld || !fileNew) {
-            alert("Please upload both documents to compare.");
-            return;
-        }
+        const fields = document.querySelectorAll('.field-row');
+        let matches = 0, mismatches = 0, missing = 0;
 
-        resultsContainer.style.display = 'block';
-        loadingState.style.display = 'block';
-        reportState.style.display = 'none';
-
-        // Simulate API call delay
-        setTimeout(() => {
-            loadingState.style.display = 'none';
-            reportState.style.display = 'block';
-            
-            // Generate mock results
-            generateMockReport(fileOld.name, fileNew.name);
-        }, 2000);
-    });
-
-    function generateMockReport(oldName, newName) {
-        const isChain = oldName.toLowerCase().includes('parent') || oldName.toLowerCase().includes('old');
-        const mode = isChain ? "Chain-of-title mode" : "Same-transaction mode";
-        
-        // Mock data
-        const fields = [
-            { field: "Seller Name", old: "Ramesh Kumar", new: "Ramesh Kumar", status: "Match", class: "status-match" },
-            { field: "Buyer Name", old: "Suresh Pillai", new: "Suresh Pillai", status: "Match", class: "status-match" },
-            { field: "Survey Number", old: "45/2A", new: "45/2B", status: "Mismatch", class: "status-mismatch" },
-            { field: "Extent", old: "1200 sq.ft", new: "1200 sq.ft", status: "Match", class: "status-match" },
-            { field: "Village", old: "Hasthinapuram", new: "Not Found", status: "Missing", class: "status-missing" }
-        ];
-
-        reportSummary.textContent = `Mode: ${mode} | Checked: ${fields.length} | Matches: 3 | Mismatches: 1 | Missing: 1`;
-        
         reportTableBody.innerHTML = '';
-        fields.forEach(f => {
-            const tr = document.createElement('tr');
-            if (f.status === "Mismatch" || f.status === "Missing") {
-                tr.style.backgroundColor = "rgba(239, 68, 68, 0.05)";
+
+        fields.forEach(row => {
+            const label = row.querySelector('.field-label').value.trim();
+            const oldVal = row.querySelector('.field-old').value.trim();
+            const newVal = row.querySelector('.field-new').value.trim();
+
+            if (!label) return;
+
+            let status, cls, bgColor = '';
+            if (!oldVal || !newVal) {
+                status = 'Missing'; cls = 'status-missing';
+                bgColor = 'rgba(245, 158, 11, 0.05)';
+                missing++;
+            } else if (oldVal.toLowerCase() === newVal.toLowerCase()) {
+                status = 'Match'; cls = 'status-match';
+                matches++;
+            } else {
+                status = 'Mismatch'; cls = 'status-mismatch';
+                bgColor = 'rgba(239, 68, 68, 0.05)';
+                mismatches++;
             }
+
+            const tr = document.createElement('tr');
+            tr.style.backgroundColor = bgColor;
             tr.innerHTML = `
-                <td><strong>${f.field}</strong></td>
-                <td>${f.old}</td>
-                <td>${f.new}</td>
-                <td class="${f.class}">${f.status}</td>
+                <td><strong>${label}</strong></td>
+                <td>${oldVal || '<em>—</em>'}</td>
+                <td>${newVal || '<em>—</em>'}</td>
+                <td class="${cls}">${status}</td>
             `;
             reportTableBody.appendChild(tr);
         });
+
+        const total = matches + mismatches + missing;
+        if (total === 0) {
+            alert('Please fill in at least one field row.');
+            return;
+        }
+
+        reportSummary.textContent = `Fields checked: ${total} | Matches: ${matches} | Mismatches: ${mismatches} | Missing: ${missing}`;
+        resultsContainer.style.display = 'block';
+    });
+
+    // Add row button
+    document.getElementById('addRowBtn').addEventListener('click', addFieldRow);
+
+    function addFieldRow() {
+        const tbody = document.getElementById('fieldsBody');
+        const tr = document.createElement('tr');
+        tr.className = 'field-row';
+        tr.innerHTML = `
+            <td><input type="text" class="field-label form-input" placeholder="e.g. Seller Name"></td>
+            <td><input type="text" class="field-old form-input" placeholder="Value from original doc"></td>
+            <td><input type="text" class="field-new form-input" placeholder="Value from new draft"></td>
+            <td><button type="button" class="btn-remove" onclick="this.closest('tr').remove()">✕</button></td>
+        `;
+        tbody.appendChild(tr);
     }
+
+    // Pre-populate default fields
+    const defaultFields = [
+        'Seller Name', 'Buyer Name', "Father's/Husband's Name",
+        'Survey Number', 'Extent / Measurement', 'Village / Taluk / District',
+        'Property Address', 'Document Date / Year', 'Consideration Amount'
+    ];
+    defaultFields.forEach(() => addFieldRow());
+
+    // Set placeholder labels
+    const rows = document.querySelectorAll('.field-row');
+    defaultFields.forEach((label, i) => {
+        if (rows[i]) rows[i].querySelector('.field-label').value = label;
+    });
 });
